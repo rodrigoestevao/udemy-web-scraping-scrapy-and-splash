@@ -1,0 +1,25 @@
+[tool.black]
+line-length = 79
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | venv
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "hug"
+src_paths = ["isort", "test"]
+known_first_party = "app/example"
+known_django = "django"
+default_section = "THIRDPARTY"
+sections = ["FUTURE","STDLIB","DJANGO","THIRDPARTY","FIRSTPARTY","LOCALFOLDER"]

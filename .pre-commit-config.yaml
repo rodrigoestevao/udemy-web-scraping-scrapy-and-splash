@@ -1,0 +1,16 @@
+exclude: ^(src/venv)
+repos:
+- repo: https://github.com/ambv/black
+  rev: 20.8b1
+  hooks:
+  - id: black
+    name: black
+    entry: black
+    require_serial: true
+    types: [python]
+    language_version: python3.8
+- repo: https://gitlab.com/pycqa/flake8
+  rev: 3.9.0
+  hooks:
+  - id: flake8
+    additional_dependencies: [flake8-bugbear]
