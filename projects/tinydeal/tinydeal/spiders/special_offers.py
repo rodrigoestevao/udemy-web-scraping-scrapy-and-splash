@@ -4,7 +4,18 @@ import scrapy
 class SpecialOffersSpider(scrapy.Spider):
     name = 'special_offers'
     allowed_domains = ['web.archive.org']
-    start_urls = ['https://web.archive.org/web/20190225123327/https://www.tinydeal.com/specials.html/']
+
+    # When override the start_requests we can remove the start_urls
+    # start_urls = ['https://web.archive.org/web/20190225123327/https://www.tinydeal.com/specials.html/']
+
+    def start_requests(self):
+        yield scrapy.Request(
+            url='https://web.archive.org/web/20190225123327/https://www.tinydeal.com/specials.html/',
+            callback=self.parse,
+            headers={
+                'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36"
+            }
+        )
 
     def parse(self, response):
         products = response.xpath("//ul[@class='productlisting-ul']/div/li")
@@ -20,5 +31,10 @@ class SpecialOffersSpider(scrapy.Spider):
 
         next_page = response.xpath("//a[@class='nextPage']/@href").get()
         if next_page:
-            yield scrapy.Request(url=next_page, callback=self.parse)
-
+            yield scrapy.Request(
+                url=next_page,
+                callback=self.parse,
+                headers={
+                    'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36"
+                }
+            )
