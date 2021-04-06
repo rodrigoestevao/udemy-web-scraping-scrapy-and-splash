@@ -1,9 +1,17 @@
 {
     "python.autoComplete.extraPaths": [
-        "projects"
+        "projects/",
+        "projects/glassesshop",
+        "projects/national_debt",
+        "projects/tinedeal",
+        "projects/worldometers"
     ],
     "python.formatting.provider": "black",
     "python.analysis.extraPaths": [
-        "projects"
+        "projects/",
+        "projects/glassesshop",
+        "projects/national_debt",
+        "projects/tinedeal",
+        "projects/worldometers"
     ]
 }

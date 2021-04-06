@@ -21,13 +21,18 @@ class CountriesSpider(scrapy.Spider):
             # absulute_url = response.urljoin(link)
             # yield scrapy.Request(url=absulute_url)
 
+            # The meta defined here will be used later by the callback
             yield response.follow(
                 url=link,
                 callback=self.parse_countries,
-
-                # The meta defined here will be used later by the callback
                 meta={"country_name": name}
             )
+
+        # yield response.follow(
+        #     url="https://www.worldometers.info/world-population/china-population/",
+        #     callback=self.parse_countries,
+        #     meta={"country_name": "China"}
+        # )
 
     def parse_countries(self, response):
         rows = response.xpath("(//table[@class='table table-striped table-bordered table-hover table-condensed table-list'])[1]/tbody/tr")
