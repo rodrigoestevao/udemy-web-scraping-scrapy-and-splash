@@ -25,9 +25,17 @@ class CoinSpider(scrapy.Spider):
         yield SplashRequest(
             url="https://web.archive.org/web/20200116052415if_/https://www.livecoin.net/en/",  # NOQA
             callback=self.parse,
-            endpoint="execute",
             args={"wait": 1, "lua_source": self.script},
+            endpoint="execute",
         )
 
     def parse(self, response):
-        print(response.body)
+        currencies = response.xpath(
+            "//div[contains(@class, 'ReactVirtualized__Table__row tableRow___3EtiS ')]"  # NOQA
+        )
+        print(f">>> currencies: {currencies}, len: {len(currencies)}")
+        # for currency in currencies:
+        #     yield {
+        #         "currency_pair": currency.xpath(".//div[1]/div/text()").get(),
+        #         "volume_24h": currency.xpath(".//div[2]/span/text()").get()
+        #     }
