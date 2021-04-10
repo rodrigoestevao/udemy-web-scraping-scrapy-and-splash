@@ -25,13 +25,6 @@ class BestMoviesSpider(CrawlSpider):
             follow=True,
             process_request="set_user_agent",
         ),
-        # # Used to set the pagination, but it's no longer valid
-        # Rule(
-        #     LinkExtractor(
-        #         restrict_xpaths=("(//a[@class='lister-page-next next-page'])[1]",)
-        #     ),
-        #     process_request='set_user_agent',
-        # ),
     )
 
     def start_requests(self):
@@ -45,11 +38,6 @@ class BestMoviesSpider(CrawlSpider):
         return request
 
     def parse_item(self, response):
-        # item = {}
-        # # item['domain_id'] = response.xpath('//input[@id="sid"]/@value').get()
-        # # item['name'] = response.xpath('//div[@id="name"]').get()
-        # # item['description'] = response.xpath('//div[@id="description"]').get()
-        # return item
         yield {
             "title": response.xpath(
                 "normalize-space(//div[@class='title_wrapper']/h1/text())"

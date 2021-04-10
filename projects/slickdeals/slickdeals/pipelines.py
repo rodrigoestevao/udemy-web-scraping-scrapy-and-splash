@@ -5,17 +5,9 @@
 
 
 # useful for handling different item types with a single interface
-import logging
-
 from itemadapter import ItemAdapter
 
 
-class ImdbPipeline:
-    def open_spider(self, spider):
-        logging.warning("SPIDER OPENED FROM PIPELINE")
-
+class SlickdealsPipeline:
     def process_item(self, item, spider):
         return item
-
-    def close_spider(self, spider):
-        logging.warning("SPIDER CLOSED FROM PIPELINE")
