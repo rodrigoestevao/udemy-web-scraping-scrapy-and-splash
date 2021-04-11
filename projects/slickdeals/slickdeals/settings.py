@@ -64,7 +64,8 @@ DOWNLOADER_MIDDLEWARES = {"scrapy_selenium.SeleniumMiddleware": 800}
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    "slickdeals.pipelines.MongoPipeline": 300,
+    # "slickdeals.pipelines.MongoPipeline": 300,
+    "slickdeals.pipelines.SQLlitePipeline": 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

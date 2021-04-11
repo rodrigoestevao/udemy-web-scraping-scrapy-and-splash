@@ -5,6 +5,7 @@
 
 import logging
 import pymongo
+import sqlite3
 
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
@@ -34,3 +35,37 @@ class MongoPipeline(object):
 
     def process_item(self, item, spider):
         self.db[self.collection_name].insert_one(ItemAdapter(item).asdict())
+
+
+class SQLlitePipeline(object):
+    def open_spider(self, spider):
+        self.connection = sqlite3.connect("slickdeals.db")
+        self.cursor = self.connection.cursor()
+        self.cursor.execute(
+            """
+        CREATE TABLE IF NOT EXISTS computer_deals (
+            name TEXT,
+            link TEXT,
+            store TEXT,
+            price TEXT
+        )
+        """
+        )
+
+    def close_spider(self, spider):
+        self.connection.close()
+
+    def process_item(self, item, spider):
+        self.cursor.execute(
+            """
+        INSERT INTO computer_deals (name, link, store, price) VALUES (?,?,?,?)
+        """,
+            (
+                item.get("name"),
+                item.get("link"),
+                item.get("store"),
+                item.get("price"),
+            ),
+        )
+        self.connection.commit()
+        return item
