@@ -63,9 +63,9 @@ DOWNLOADER_MIDDLEWARES = {"scrapy_selenium.SeleniumMiddleware": 800}
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-# ITEM_PIPELINES = {
-#    'slickdeals.pipelines.SlickdealsPipeline': 300,
-# }
+ITEM_PIPELINES = {
+    "slickdeals.pipelines.MongoPipeline": 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
@@ -95,3 +95,8 @@ SELENIUM_DRIVER_EXECUTABLE_PATH = which("chromedriver")
 SELENIUM_DRIVER_ARGUMENTS = [
     "--headless"
 ]  # '--headless' if using chrome instead of firefox
+
+
+# CUSTOM SETTINGS
+MONGO_DB = "slickdeals"
+MONGO_URI = f"mongodb://root:s3cr3t@127.0.0.1"
