@@ -18,8 +18,10 @@ class QuotesApiSpider(scrapy.Spider):
             }
 
         has_next = data.get("has_next")
+
         if has_next:
             next_page = data.get("page") + 1
             yield scrapy.Request(
-                url=f"http://quotes.toscrape.com/api/quotes?page={next_page}"
+                url=f"http://quotes.toscrape.com/api/quotes?page={next_page}",
+                callback=self.parse,
             )
